@@ -10,5 +10,5 @@ const middleware = composeWithDevTools(
 );
 const store = createStore(reducer, middleware);
 
-export default StoreExceptionsInformation;
+export default store;
 export * from './user';

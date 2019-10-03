@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // initial state
 const defaultUser = {};
 
@@ -10,6 +12,14 @@ const getUser = user => ({type: GET_USER, user});
 const removeUser = () => ({type: REMOVE_USER});
 
 // thunk creators
+export const logout = () => async dispatch => {
+  try {
+    await axios.post('/auth/logout');
+    dispatch(removeUser());
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 // reducer
 export default function (state = defaultUser, action) {
