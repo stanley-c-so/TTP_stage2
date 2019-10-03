@@ -17,7 +17,7 @@ router.post('/login', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-})
+});
 
 // router.post('/signup', async (req, res, next) => {
 //   try {
@@ -36,8 +36,8 @@ router.post('/logout', (req, res) => {
   req.logout();
   req.session.destroy();
   res.redirect('/');
-})
+});
 
 router.get('/me', (req, res) => {
   res.json(req.user);
-})
+});
