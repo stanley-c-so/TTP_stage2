@@ -9,15 +9,23 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
     <nav>
       {isLoggedIn ? (
         <div>
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+          <div>
+            <Link to="/home">Home</Link>
+          </div>
+          <div>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
         </div>
       ) : (
           <div>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
+            <div>
+              <Link to="/login">Login</Link>
+            </div>
+            <div>
+              <Link to="/signup">Sign Up</Link>
+            </div>
           </div>
         )}
     </nav>
