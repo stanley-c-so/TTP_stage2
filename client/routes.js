@@ -13,8 +13,7 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props
-
+    const { isLoggedIn } = this.props;
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -24,6 +23,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route component={UserHome} />
           </Switch>
         )}
         <Route component={Login} />
@@ -32,7 +32,9 @@ class Routes extends Component {
   };
 }
 
-const mapState = state => ({isLoggedIn: !!state.user.id});
+const mapState = state => ({
+  isLoggedIn: !!state.user.id,
+});
 
 const mapDispatch = dispatch => ({
   loadInitialData() {

@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
+const session = require('express-session');
 const db = require('./db');
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -16,8 +17,16 @@ const createApp = () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
+  // session middleware
+  app.use(session({
+    secret: process.env.SESSION_SECRET || 'local session secret',
+    resave: false,
+    saveUninitialized: false,
+  }));
+
   // api routes
   app.use('/api', require('./api'));
+  app.use('/auth', require('./auth'));
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
