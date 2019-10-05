@@ -10,7 +10,12 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       {isLoggedIn ? (
         <ul>
           <li>
-            {/* TEST */}
+            <Link to="/portfolio">Portfolio</Link>
+          </li>
+          <li>
+            <Link to="/transactions">Transaction History</Link>
+          </li>
+          <li>
             <Link to="/home">Home</Link>
           </li>
           <li>
@@ -22,7 +27,6 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       ) : (
           <ul>
             <li>
-              {/* TEST */}
               <Link to="/login">Login</Link>
             </li>
             <li>

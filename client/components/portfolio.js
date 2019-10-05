@@ -1,15 +1,19 @@
-const { apiKey } = require('../../secrets.js');
-const alpha = require('alphavantage')({ key: apiKey });
+import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-let ticker = 'msft'
+export const Portfolio = props => {
+  const { user } = props;
+  if (!user) return <Redirect to='/' />;
+  return (
+    <div>
+      <h3>{user.name}'s Portfolio page currently under construction</h3>
+    </div>
+  );
+};
 
-const test = async () => {
-  const data = await alpha.data.quote(ticker);
-  console.log(alpha.util.polish(data));
-}
+const mapState = state => ({
+  user: state.user,
+});
 
-test();
-
-// alpha.data.quote(ticker).then(data => {
-//   console.log(alpha.util.polish(data));
-// });
+export default connect(mapState)(Portfolio);
