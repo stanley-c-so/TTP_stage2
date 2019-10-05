@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/:userId', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const {ticker, quantity} = req.body;
   try {
     const {data} = alpha.util.polish(await alpha.data.quote(ticker));
@@ -22,7 +22,7 @@ router.post('/:userId', async (req, res, next) => {
       ticker,
       quantity,
       priceAtPurchase: +data.price * 100,
-      userId: req.params.userId,
+      userId: req.session.userId || null,
     });
     res.json(transaction);
   } catch (err) {
