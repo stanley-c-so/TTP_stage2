@@ -3,9 +3,18 @@ const db = require('../db');
 const crypto = require('crypto');
 
 const User = db.define('user', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
+    allowNull: false,
+  },
+  balance: {
+    type: Sequelize.INTEGER,
+    defaultValue: 500000,
     allowNull: false,
   },
   password: {

@@ -5,28 +5,30 @@ import { logout } from '../store';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
-    <h1>TTP STAGE 2</h1>
     <nav>
+      <h1>oscar stock portfolio app</h1>
       {isLoggedIn ? (
-        <div>
-          <div>
+        <ul>
+          <li>
+            {/* TEST */}
             <Link to="/home">Home</Link>
-          </div>
-          <div>
+          </li>
+          <li>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
-          </div>
-        </div>
+          </li>
+        </ul>
       ) : (
-          <div>
-            <div>
+          <ul>
+            <li>
+              {/* TEST */}
               <Link to="/login">Login</Link>
-            </div>
-            <div>
+            </li>
+            <li>
               <Link to="/signup">Sign Up</Link>
-            </div>
-          </div>
+            </li>
+          </ul>
         )}
     </nav>
     <hr />
