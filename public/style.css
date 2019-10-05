@@ -1,0 +1,33 @@
+
+* {
+  font-family: "Saira Extra Condensed", sans-serif;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: blue;
+}
+
+nav h1 {
+  /* width: 70%; */
+}
+
+nav ul {
+  list-style: none;
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  background-color: red;
+}
+
+a {
+  color: darkblue;
+}
+
+/* li {
+  display: list-item;
+} */
