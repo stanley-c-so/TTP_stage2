@@ -17,3 +17,6 @@ const Transaction = db.define('transaction', {
 });
 
 module.exports = Transaction;
+
+// hooks
+Transaction.beforeCreate(transaction => transaction.ticker = transaction.ticker.toUpperCase());
