@@ -12,3 +12,17 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.put('/', async (req, res, next) => {
+  const { quantity, priceAtPurchase } = req.body;
+  try {
+    const user = await User.findByPk(req.session.userId);
+    //console.log('USER.BALANCE:', user.balance)
+    const update = await user.update(
+      { balance: user.balance - quantity * priceAtPurchase },
+    );
+    res.json(update.dataValues);
+  } catch (err) {
+    next(err);
+  }
+});

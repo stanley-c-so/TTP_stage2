@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { updateBalanceThunk } from '../store';
 import axios from 'axios';
 
 class BuyStock extends Component {
@@ -31,6 +32,8 @@ class BuyStock extends Component {
       if (typeof res.data === 'string' && res.data.includes('Error:')) {
         this.setState({ status: res.data });
       } else {
+        const { quantity, priceAtPurchase } = res.data;
+        this.props.updateBalance(quantity, priceAtPurchase);
         this.setState({
           ticker: '',
           quantity: '',
@@ -44,9 +47,10 @@ class BuyStock extends Component {
 
   render () {
     const { status } = this.state;
+    const { user } = this.props;
     return (
       <div>
-        <h2>BUY STOCK</h2>
+        <h2>CASH - ${parseFloat(user.balance / 100).toFixed(2)}</h2>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor='ticker'>Ticker Symbol:</label>
           <input required type='text' name='ticker' value={this.state.ticker} onChange={this.handleChange} />
@@ -64,4 +68,10 @@ const mapState = state => ({
   user: state.user,
 });
 
-export default connect(mapState)(BuyStock);
+const mapDispatch = dispatch => ({
+  updateBalance(quantity, priceAtPurchase) {
+    dispatch(updateBalanceThunk(quantity, priceAtPurchase));
+  },
+});
+
+export default connect(mapState, mapDispatch)(BuyStock);

@@ -20,7 +20,7 @@ router.post('/', async (req, res, next) => {
   const {ticker, quantity, balance} = req.body;
   try {
     const {data} = alpha.util.polish(await alpha.data.quote(ticker));
-    if (+balance >= +quantity * +data.price) {
+    if (balance >= quantity * +data.price * 100) {
       const transaction = await Transaction.create({
         ticker,
         quantity,
