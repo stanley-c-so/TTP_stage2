@@ -8,7 +8,7 @@ const alpha = require('alphavantage')({ key: apiKey });
 router.get('/', async (req, res, next) => {
   try {
     const transactions = await Transaction.findAll({
-      where: {userId: req.session.userId},
+      where: {userId: req.session.userId },
     });
     res.json(transactions);
   } catch (err) {

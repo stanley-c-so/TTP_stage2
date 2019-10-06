@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-export const UserHome = props => {
+export const BuyStock = props => {
   const { user } = props;
   return (
     <div>
-      <h2>Welcome, {user.name}!</h2>
+      <h2>BUY STOCK</h2>
     </div>
   );
 };
@@ -14,4 +14,4 @@ const mapState = state => ({
   user: state.user,
 });
 
-export default connect(mapState)(UserHome);
+export default connect(mapState)(BuyStock);
