@@ -23,7 +23,7 @@ class Transactions extends Component {
     return (
       <div>
         <h2>{user.name}'s Transaction History</h2>
-        {transactions.map(t => (
+        {transactions.reverse().map(t => (
           <div>BUY ({t.ticker}) - {t.quantity} Shares @ ${t.priceAtPurchase / 100}</div>
         ))}
       </div>
