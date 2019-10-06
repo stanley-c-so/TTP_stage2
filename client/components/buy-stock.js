@@ -8,6 +8,7 @@ class BuyStock extends Component {
     this.state = {
       ticker: '',
       quantity: '',
+      status: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,20 +22,28 @@ class BuyStock extends Component {
 
   async handleSubmit(evt) {
     evt.preventDefault();
-    const result = await axios.post('/api/transactions', {
-      ticker: this.state.ticker,
-      quantity: this.state.quantity,
-      balance: this.props.user.balance,
-    });
-    console.log('RESULT:', result);
-    this.setState({
-      ticker: '',
-      quantity: ''
-    });
+    try {
+      const res = await axios.post('/api/transactions', {
+        ticker: this.state.ticker,
+        quantity: this.state.quantity,
+        balance: this.props.user.balance,
+      });
+      if (typeof res.data === 'string' && res.data.includes('Error:')) {
+        this.setState({ status: res.data });
+      } else {
+        this.setState({
+          ticker: '',
+          quantity: '',
+          status: 'Success!',
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   render () {
-    console.log('THIS.PROPS.USER:', this.props.user)
+    const { status } = this.state;
     return (
       <div>
         <h2>BUY STOCK</h2>
@@ -44,6 +53,7 @@ class BuyStock extends Component {
           <label htmlFor='quantity'>Quantity:</label>
           <input required type='text' name='quantity' value={this.state.quantity} onChange={this.handleChange} />
           <button type='submit'>Submit</button>
+          {status && <div>{status}</div>}
         </form>
       </div>
     );
@@ -53,14 +63,5 @@ class BuyStock extends Component {
 const mapState = state => ({
   user: state.user,
 });
-
-// const mapDispatch = dispatch => ({
-//   handleSubmit(evt) {
-//     evt.preventDefault();
-//     const ticker = evt.target.ticker.value;
-//     const quantity = evt.target.quantity.value;
-
-//   }
-// });
 
 export default connect(mapState)(BuyStock);

@@ -29,11 +29,11 @@ router.post('/', async (req, res, next) => {
       });
       res.json(transaction);
     } else {
-      res.status(400).send('Insufficient balance.');
+      res.status(200).send('Error: Insufficient balance.');
     }
   } catch (err) {
     if (err.includes('Invalid API call')) {
-      res.status(400).send('Ticker symbol not found.');
+      res.status(200).send('Error: Ticker symbol not found.');
     } else {
       next(err);
     }

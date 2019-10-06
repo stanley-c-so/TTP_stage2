@@ -36,21 +36,17 @@ const AuthForm = props => {
   );
 };
 
-const mapLogin = state => {
-  return {
-    name: 'login',
-    displayName: 'Login',
-    error: state.user.error,
-  };
-}
+const mapLogin = state => ({
+  name: 'login',
+  displayName: 'Login',
+  error: state.user.error,
+});
 
-const mapSignup = state => {
-  return {
-    name: 'signup',
-    displayName: 'Sign Up',
-    error: state.user.error,
-  };
-}
+const mapSignup = state => ({
+  name: 'signup',
+  displayName: 'Sign Up',
+  error: state.user.error,
+});
 
 const mapDispatch = dispatch => ({
   handleSubmit(evt) {
