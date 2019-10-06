@@ -32,12 +32,12 @@ class BuyStock extends Component {
       if (typeof res.data === 'string' && res.data.includes('Error:')) {
         this.setState({ status: res.data });
       } else {
-        const { quantity, priceAtPurchase } = res.data;
+        const { ticker, quantity, priceAtPurchase } = res.data;
         this.props.updateBalance(quantity, priceAtPurchase);
         this.setState({
           ticker: '',
           quantity: '',
-          status: 'Success!',
+          status: `Purchased ${quantity} share(s) of ${ticker} at $${parseFloat(priceAtPurchase / 100).toFixed(2)} per share.`,
         });
       }
     } catch (err) {
