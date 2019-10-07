@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deploy": "script/deploy",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
     "start-dev": "webpack -w & nodemon server",
-    "seed": "node seed.js"
+    "seed": "node script/seed.js"
   },
   "repository": {
     "type": "git",
