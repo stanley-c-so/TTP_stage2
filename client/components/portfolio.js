@@ -62,7 +62,10 @@ class BuyStock extends Component {
             <div className={i % 2 ? "bg-light" : "bg-dark"}>{ticker}: {portfolio[ticker].quantity} share(s) - <span className={portfolio[ticker].currentPrice > portfolio[ticker].dayOpen ? "green" : portfolio[ticker].currentPrice < portfolio[ticker].dayOpen ? "red" : "gray"}>${parseFloat(portfolio[ticker].currentPrice / 100).toFixed(2)}</span></div>
           )) : (<div>Empty portfolio or API rate limit exceeded</div>)}
         </div>
-        <div id="buy-stock">
+        <div id="portfolio-line">
+            <div id="portfolio-line-box"></div>
+        </div>
+        <div id="portfolio-buy">
           <h2>CASH (${parseFloat(user.balance / 100).toFixed(2)})</h2>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor='ticker'>Ticker Symbol:</label>

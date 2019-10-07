@@ -13,7 +13,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             <Link to="/portfolio">Portfolio</Link>
           </li>
           <li>
-            <Link to="/transactions">Transaction History</Link>
+            <Link to="/transactions">Transactions</Link>
           </li>
           <li>
             <Link to="/home">Home</Link>
