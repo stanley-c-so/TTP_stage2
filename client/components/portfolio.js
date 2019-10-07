@@ -56,14 +56,14 @@ class BuyStock extends Component {
     const { user, portfolio } = this.props;
     return (
       <div id="portfolio-page">
-        <div>
-          <h2>PORTFOLIO LIST (${parseFloat(Object.keys(portfolio).reduce((total, ticker) => total + portfolio[ticker].currentPrice, 0) / 100).toFixed(2))}</h2>
-          {Object.keys(portfolio).length ? Object.keys(portfolio).map(ticker => (
-            <div>{ticker}: {portfolio[ticker].quantity} share(s) - <span className={portfolio[ticker].currentPrice > portfolio[ticker].dayOpen ? "green" : portfolio[ticker].currentPrice < portfolio[ticker].dayOpen ? "red" : "gray"}>${parseFloat(portfolio[ticker].currentPrice / 100).toFixed(2)}</span></div>
+        <div id="portfolio">
+          <h2>PORTFOLIO (${parseFloat(Object.keys(portfolio).reduce((total, ticker) => total + portfolio[ticker].currentPrice, 0) / 100).toFixed(2)})</h2>
+          {Object.keys(portfolio).length ? Object.keys(portfolio).map((ticker, i) => (
+            <div className={i % 2 ? "bg-light" : "bg-dark"}>{ticker}: {portfolio[ticker].quantity} share(s) - <span className={portfolio[ticker].currentPrice > portfolio[ticker].dayOpen ? "green" : portfolio[ticker].currentPrice < portfolio[ticker].dayOpen ? "red" : "gray"}>${parseFloat(portfolio[ticker].currentPrice / 100).toFixed(2)}</span></div>
           )) : (<div>Empty portfolio or API rate limit exceeded</div>)}
         </div>
-        <div>
-          <h2>CASH - ${parseFloat(user.balance / 100).toFixed(2)}</h2>
+        <div id="buy-stock">
+          <h2>CASH (${parseFloat(user.balance / 100).toFixed(2)})</h2>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor='ticker'>Ticker Symbol:</label>
             <input required type='text' name='ticker' value={this.state.ticker} onChange={this.handleChange} />

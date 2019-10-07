@@ -22,9 +22,9 @@ class Transactions extends Component {
     const { transactions } = this.state;
     return (
       <div>
-        <h2>{user.name}'s Transaction History</h2>
-        {transactions.reverse().map(t => (
-          <div>BUY ({t.ticker}) - {t.quantity} Share(s) at ${t.priceAtPurchase / 100} per share</div>
+        <h2>{user.name.toUpperCase()}'S TRANSACTION HISTORY</h2>
+        {transactions.reverse().map((t, i) => (
+          <div className={i % 2 ? "bg-light" : "bg-dark"}>BUY ({t.ticker}) - {t.quantity} Share(s) at ${t.priceAtPurchase / 100} per share - {Date(Date.parse(t.createdAt))}</div>
         ))}
       </div>
     );
