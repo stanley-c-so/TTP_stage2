@@ -16,6 +16,18 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:portfolio', async (req, res, next) => {
+  const parse = JSON.parse(req.params.portfolio);
+  try {
+    const promises = Object.keys(parse).map(ticker => alpha.data.quote(ticker));
+    Promise.all(promises)
+      .then(data => alpha.util.polish(data))
+      .then(polishedData => res.json(polishedData));
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post('/', async (req, res, next) => {
   const {ticker, quantity, balance} = req.body;
   try {
