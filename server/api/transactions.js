@@ -2,8 +2,9 @@ const router = require('express').Router();
 const { Transaction } = require('../db/models');
 module.exports = router;
 
-const { apiKey } = require('../../secrets.js');
-const alpha = require('alphavantage')({ key: apiKey });
+const { apiKeys, utilityKey } = require('../../secrets.js');
+const alpha = i => require('alphavantage')({ key: apiKeys[i] });
+const alphaUtil = require('alphavantage')({ key: utilityKey });
 
 router.get('/', async (req, res, next) => {
   try {
@@ -18,11 +19,13 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:portfolio', async (req, res, next) => {
   const parse = JSON.parse(req.params.portfolio);
+  const offset = Math.floor(Math.random() * apiKeys.length);
   try {
-    const promises = Object.keys(parse).map(ticker => alpha.data.quote(ticker));
+    const promises = Object.keys(parse).map((ticker, i) => alpha((i + offset) % apiKeys.length).data.quote(ticker));
     Promise.all(promises)
-      .then(data => alpha.util.polish(data))
-      .then(polishedData => res.json(polishedData));
+      .then(data => alphaUtil.util.polish(data))
+      .then(polishedData => res.json(polishedData))
+      .catch(err => next(err));
   } catch (err) {
     next(err);
   }
@@ -30,13 +33,14 @@ router.get('/:portfolio', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   const {ticker, quantity, balance} = req.body;
+  const randomKey = Math.floor(Math.random() * apiKeys.length);
   try {
-    const {data} = alpha.util.polish(await alpha.data.quote(ticker));
-    if (balance >= quantity * +data.price * 100) {
+    const {data} = alphaUtil.util.polish(await alpha(randomKey).data.quote(ticker));
+    if (balance >= quantity * Math.round(+data.price * 100)) {
       const transaction = await Transaction.create({
         ticker,
         quantity,
-        priceAtPurchase: +data.price * 100,
+        priceAtPurchase: Math.round(+data.price * 100),
         userId: req.session.userId || null,
       });
       res.json(transaction);
@@ -44,7 +48,7 @@ router.post('/', async (req, res, next) => {
       res.status(200).send('Error: Insufficient balance.');
     }
   } catch (err) {
-    if (err.includes('Invalid API call')) {
+    if (typeof err === 'string' && err.includes('Invalid API call')) {
       res.status(200).send('Error: Ticker symbol not found.');
     } else {
       next(err);

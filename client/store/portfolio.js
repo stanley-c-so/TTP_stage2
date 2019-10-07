@@ -25,7 +25,6 @@ export const getTransactionsThunk = () => async dispatch => {
       portfolio[ticker.data.symbol].currentPrice = +ticker.data.price * 100;
       portfolio[ticker.data.symbol].dayOpen = +ticker.data.open * 100;
     });
-    console.log('PORTFOLIO:', portfolio)
     dispatch(updatePortfolio(portfolio));
   } catch (err) {
     console.error(err);

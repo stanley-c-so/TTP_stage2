@@ -59,7 +59,7 @@ class BuyStock extends Component {
         <div>
           <h2>PORTFOLIO LIST</h2>
           {Object.keys(portfolio).map(ticker => (
-            <div>{ticker}: {portfolio[ticker].quantity} share(s) - ${parseFloat(portfolio[ticker].currentPrice / 100).toFixed(2)}</div>
+            <div>{ticker}: {portfolio[ticker].quantity} share(s) - <span className={portfolio[ticker].currentPrice > portfolio[ticker].dayOpen ? "green" : portfolio[ticker].currentPrice < portfolio[ticker].dayOpen ? "red" : "gray"}>${parseFloat(portfolio[ticker].currentPrice / 100).toFixed(2)}</span></div>
           ))}
         </div>
         <div>
