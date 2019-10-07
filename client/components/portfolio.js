@@ -58,9 +58,9 @@ class BuyStock extends Component {
       <div id="portfolio-page">
         <div>
           <h2>PORTFOLIO LIST</h2>
-          {Object.keys(portfolio).map(ticker => (
+          {Object.keys(portfolio).length ? Object.keys(portfolio).map(ticker => (
             <div>{ticker}: {portfolio[ticker].quantity} share(s) - <span className={portfolio[ticker].currentPrice > portfolio[ticker].dayOpen ? "green" : portfolio[ticker].currentPrice < portfolio[ticker].dayOpen ? "red" : "gray"}>${parseFloat(portfolio[ticker].currentPrice / 100).toFixed(2)}</span></div>
-          ))}
+          )) : (<div>Empty portfolio or API rate limit exceeded</div>)}
         </div>
         <div>
           <h2>CASH - ${parseFloat(user.balance / 100).toFixed(2)}</h2>
@@ -68,7 +68,7 @@ class BuyStock extends Component {
             <label htmlFor='ticker'>Ticker Symbol:</label>
             <input required type='text' name='ticker' value={this.state.ticker} onChange={this.handleChange} />
             <label htmlFor='quantity'>Quantity:</label>
-            <input required type='text' name='quantity' value={this.state.quantity} onChange={this.handleChange} />
+            <input required type='number' min="1" name='quantity' value={this.state.quantity} onChange={this.handleChange} />
             <button type='submit'>Submit</button>
             {status && <div>{status}</div>}
           </form>

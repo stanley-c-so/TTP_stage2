@@ -50,6 +50,8 @@ router.post('/', async (req, res, next) => {
   } catch (err) {
     if (typeof err === 'string' && err.includes('Invalid API call')) {
       res.status(200).send('Error: Ticker symbol not found.');
+    } else if (typeof err === 'string' && err.includes('API call frequency')) {
+      res.status(200).send('Error: API rate limit exceed.');
     } else {
       next(err);
     }

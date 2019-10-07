@@ -21,21 +21,22 @@ class Routes extends Component {
   render() {
     const { isLoggedIn } = this.props;
     return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        {isLoggedIn && (
+      <div id="main-page">
+        {isLoggedIn ? (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
             <Route path="/portfolio" component={Portfolio} />
             <Route path="/transactions" component={Transactions} />
             <Route component={UserHome} />
           </Switch>
+        ) : (
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route component={Login} />
+          </Switch>
         )}
-        <Route component={Login} />
-      </Switch>
+      </div>
     )
   };
 }
